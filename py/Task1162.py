@@ -62,7 +62,66 @@ class Solution:
 
         return -1 if res == 0 or res == 99999999999 else res
 
+    def maxDistance3(self, grid: List[List[int]]) -> int:
+        N = len(grid)
+        dq = deque()
+        visit = set()
+        direct = ((0, 1), (0, -1), (1, 0), (-1, 0))
 
-grid = [[1, 0, 0], [0, 0, 0], [0, 0, 0]]
+        for i in range(N):
+            for j in range(N):
+                if grid[i][j]:
+                    visit.add(N * i + j)
+                    dq.append((i, j))
+
+        if not visit or len(visit) == N * N:
+            return -1
+
+        res = 0
+        while len(visit) != N * N:
+            res += 1
+            for _ in range(len(dq)):
+                p, q = dq.popleft()
+                for dx, dy in direct:
+                    i, j = p + dx, q + dy
+                    if 0 <= i < N and 0 <= j < N:
+                        if N * i + j in visit:
+                            continue
+                        dq.append((i, j))
+                        visit.add(N * i + j)
+
+        return res
+
+    def maxDistance4(self, grid: List[List[int]]) -> int:
+        N = len(grid)
+        dq = deque()
+        visit = set()
+        direct = ((0, 1), (0, -1), (1, 0), (-1, 0))
+
+        for i in range(N):
+            for j in range(N):
+                if grid[i][j]:
+                    visit.add(N * i + j)
+                    dq.append((i, j, 0))
+
+        if not visit or len(visit) == N * N:
+            return -1
+
+        res = 0
+        while dq:
+            for _ in range(len(dq)):
+                p, q, res = dq.popleft()
+                for dx, dy in direct:
+                    i, j = p + dx, q + dy
+                    if 0 <= i < N and 0 <= j < N:
+                        if N * i + j in visit:
+                            continue
+                        dq.append((i, j, res + 1))
+                        visit.add(N * i + j)
+
+        return res
+
+
+grid = [[1, 0, 1], [0, 0, 0], [1, 0, 1]]
 obj = Solution()
-print(obj.maxDistance2(grid))
+print(obj.maxDistance3(grid))
