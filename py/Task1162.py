@@ -102,21 +102,20 @@ class Solution:
             for j in range(N):
                 if grid[i][j]:
                     visit.add(N * i + j)
-                    dq.append((i, j, 0))
+                    dq.append((i, j))
 
         if not visit or len(visit) == N * N:
             return -1
 
-        res = 0
+        res = -1
         while dq:
+            res += 1
             for _ in range(len(dq)):
-                p, q, res = dq.popleft()
+                p, q = dq.popleft()
                 for dx, dy in direct:
                     i, j = p + dx, q + dy
-                    if 0 <= i < N and 0 <= j < N:
-                        if N * i + j in visit:
-                            continue
-                        dq.append((i, j, res + 1))
+                    if 0 <= i < N and 0 <= j < N and N * i + j not in visit:
+                        dq.append((i, j))
                         visit.add(N * i + j)
 
         return res
