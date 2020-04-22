@@ -24,6 +24,7 @@ class Solution:
 
     def rightSideView2(self, root: TreeNode) -> List[int]:
         res = []
+
         def dfs(root: TreeNode, level: int):
             if not root:
                 return
@@ -36,10 +37,26 @@ class Solution:
         dfs(root, 0)
         return res
 
+    # dfs 2020-04-22
+    def rightSideView3(self, root: TreeNode) -> List[int]:
+        res = []
+
+        def _dfs(node: TreeNode, level: int):
+            if not node:
+                return
+            if len(res) > level:
+                res[level] = node.val
+            else:
+                res.append(node.val)
+            _dfs(node.left, level + 1)
+            _dfs(node.right, level + 1)
+        _dfs(root, 0)
+        return res
+
 
 root = TreeNode(1)
 root.left, root.right = TreeNode(2), TreeNode(3)
 root.left.right = TreeNode(5)
 root.right.right = TreeNode(4)
 so = Solution()
-print(so.rightSideView2(root))
+print(so.rightSideView3(root))
