@@ -22,6 +22,7 @@ class Solution:
 
     def isValidBST2(self, root: TreeNode) -> bool:
         self.pre = -100000000000
+
         def inorder(root: TreeNode) -> bool:
             if not root:
                 return True
@@ -31,4 +32,24 @@ class Solution:
                 return False
             self.pre = root.val
             return inorder(root.right)
+        return inorder(root)
+
+    # inorder 2020-05-05
+    def isValidBST3(self, root: TreeNode) -> bool:
+        self.pre = -99999999999
+
+        def inorder(node: TreeNode) -> bool:
+            if not node:
+                return True
+            # left
+            if not inorder(node.left):
+                return False
+            # cur node
+            elif node.val <= self.pre:
+                return False
+
+            self.pre = node.val
+            # right
+            return inorder(node.right)
+
         return inorder(root)
