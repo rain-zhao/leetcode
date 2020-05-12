@@ -23,6 +23,30 @@ class MinStack:
         return self.minVal
 
 
+# 用[]存最小值
+class MinStack2:
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.stack = []
+        self.minStack = [99999999999]
+
+    def push(self, x: int) -> None:
+        self.stack.append(x)
+        self.minStack.append(min(self.minStack[-1], x))
+
+    def pop(self) -> None:
+        self.stack.pop()
+        self.minStack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.minStack[-1]
+
+
 obj = MinStack()
 obj.push(-2)
 obj.push(0)
