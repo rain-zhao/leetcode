@@ -50,6 +50,20 @@ class Solution:
 
         return res
 
+    # prefix
+    def numberOfSubarrays2(self, nums: List[int], k: int) -> int:
+        res = 0
+        cnts = [0] * (len(nums)+1)
+        cnts[0] = 1
+        odd = 0
+        for num in nums:
+            if num & 1:
+                odd += 1
+            if odd >= k:
+                res += cnts[odd-k]
+            cnts[odd] += 1
+        return res
+
 
 obj = Solution()
 nums = [1, 1, 2, 1, 1]
