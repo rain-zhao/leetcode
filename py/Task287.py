@@ -26,3 +26,23 @@ class Solution:
             p1, p2 = nums[p1], nums[p2]
 
         return p1
+
+    # binary search
+    def findDuplicate3(self, nums: List[int]) -> int:
+        if len(nums) < 3:
+            return nums[0]
+        l = len(nums)
+        left, right = 1, l-1
+        while left <= right:
+            mid = (left + right) >> 1
+
+            cnt = 0
+            for num in nums:
+                cnt += 1 if num <= mid else 0
+
+            if cnt <= mid:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return left
