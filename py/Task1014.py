@@ -19,11 +19,19 @@ class Solution:
     def maxScoreSightseeingPair2(self, A: List[int]) -> int:
         preMax = res = -90000000000
         for i in range(len(A)-1):
-            preMax = max(preMax,A[i]+i)
-            res = max(res,preMax+A[i+1]-i-1)
+            preMax = max(preMax, A[i]+i)
+            res = max(res, preMax+A[i+1]-i-1)
+        return res
+
+    def maxScoreSightseeingPair3(self, A: List[int]) -> int:
+        preMax = A[0]
+        res = 0
+        for j in range(1, len(A)):
+            res = max(res, preMax + A[j] - j)
+            preMax = max(preMax, A[j] + j)
         return res
 
 
 A = [8, 1, 5, 2, 6]
 so = Solution()
-print(so.maxScoreSightseeingPair2(A))
+print(so.maxScoreSightseeingPair3(A))
