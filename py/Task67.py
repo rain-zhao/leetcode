@@ -29,7 +29,22 @@ class Solution:
             res = '1'+res
         return res
 
+    def addBinary2(self, a: str, b: str) -> str:
+        diff = len(a) - len(b)
+        a = '0' * -diff + a
+        b = '0' * diff + b
+        carry = 0
+        res = ''
+        for i, j in zip(a[::-1], b[::-1]):
+            sum = int(i) + int(j) + carry
+            res = str(sum & 1) + res
+            carry = sum >> 1
+        if carry:
+            res = '1' + res
+        return res
+
+
 solution = Solution()
-a = "1010"
-b = "1011"
-print(solution.addBinary(a, b))
+a = "111"
+b = "11"
+print(solution.addBinary2(a, b))
