@@ -36,6 +36,23 @@ class Solution:
                 left += 1
         return mini
 
+    def minSubArrayLen3(self, s: int, nums: List[int]) -> int:
+        if not nums or sum(nums) < s:
+            return 0
+        l = len(nums)
+        left = 0
+        mini = l
+        curSum = 0
+        for right in range(l):
+            curSum += nums[right]
+            while curSum >= s:
+                mini = min(mini, right - left + 1)
+                if mini == 1:
+                    return mini
+                curSum -= nums[left]
+                left += 1
+        return mini
+
 
 s = 213
 nums = [12, 28, 83, 4, 25, 26, 25, 2, 25, 25, 25, 12]
