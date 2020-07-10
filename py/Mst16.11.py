@@ -18,6 +18,6 @@ class Solution:
 
 shorter = 1
 longer = 2
-k = 0
+k = 3
 obj = Solution()
 print(obj.divingBoard(shorter, longer, k))
