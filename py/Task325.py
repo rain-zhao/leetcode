@@ -1,6 +1,27 @@
 from typing import List
 
 
+class FenWickTree:
+    def __init__(self, n):
+        self.length = n
+        self.tree = [0] * (n+1)
+
+    def lowbit(self, n: int) -> int:
+        return n & -n
+
+    def update(self, n: int, delta: int):
+        while n <= self.length:
+            self.tree[n] += delta
+            n += self.lowbit(n)
+
+    def query(self, n: int) -> int:
+        sum = 0
+        while n > 0:
+            sum += self.tree[n]
+            n -= self.lowbit(n)
+        return sum
+
+
 class Solution:
     # brute force o(n2)
     def countSmaller(self, nums: List[int]) -> List[int]:
@@ -102,7 +123,25 @@ class Solution:
         mergeSort(0, l - 1)
         return res
 
+    # 树状数组
+    def countSmaller4(self, nums: List[int]) -> List[int]:
+        if not nums:
+            return []
+        # pre-process
+        idxMap = {num: i for i, num in enumerate(sorted(set(nums)), start=1)}
+        nums = [idxMap[num] for num in nums]
+
+        # fenwickTree process
+        tree = FenWickTree(len(idxMap))
+        res = []
+        for num in nums[::-1]:
+            tree.update(num, 1)
+            res.append(tree.query(num - 1))
+
+        res.reverse()
+        return res
+
 
 obj = Solution()
-nums = [5, 2, 6, 1]
-print(obj.countSmaller3(nums))
+nums = [5, 5, 2, 2, 6, 2, 1]
+print(obj.countSmaller4(nums))
