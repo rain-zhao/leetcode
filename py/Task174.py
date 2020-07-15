@@ -12,9 +12,9 @@
 
 # 例如，考虑到如下布局的地下城，如果骑士遵循最佳路径 右 -> 右 -> 下 -> 下，则骑士的初始健康点数至少为 7。
 
-# -2 (K)	-3	3
-# -5	-10	1
-# 10	30	-5 (P)
+# -2 (K)	-3	    3
+# -5	    -10	    1
+# 10	    30	    -5 (P)
 #  
 
 # 说明:
@@ -39,26 +39,43 @@ class Solution:
 
         for i in range(m-1, -1, -1):
             for j in range(n-1, -1, -1):
-                dp[i][j] = max(1,min(dp[i+1][j], dp[i][j+1]) - dungeon[i][j])
+                dp[i][j] = max(1, min(dp[i+1][j], dp[i][j+1]) - dungeon[i][j])
 
-        return dp[0][0] 
+        return dp[0][0]
     # recursion
+
     def calculateMinimumHP2(self, dungeon: List[List[int]]) -> int:
         m = len(dungeon)
         n = len(dungeon[0])
-        def recur(i,j):
+
+        def recur(i, j):
             # stop condition
-            if i >= m or j >=n:
+            if i >= m or j >= n:
                 return 99999999999
             if i == m-1 and j == n-1:
-                return max(1,1-dungeon[-1][-1])
+                return max(1, 1-dungeon[-1][-1])
 
             # drill down
-            return max(1,min(recur(i,j+1),recur(i+1,j))-dungeon[i][j])
-        return recur(0,0)
+            return max(1, min(recur(i, j+1), recur(i+1, j))-dungeon[i][j])
+        return recur(0, 0)
+
+    # dp 压缩空间 2020-07-15
+    def calculateMinimumHP3(self, dungeon: List[List[int]]) -> int:
+        m = len(dungeon)
+        n = len(dungeon[0])
+        # define and init
+        dp = [99999999999] * (n + 1)
+        dp[n-1] = 1
+        for i in range(m-1, -1, -1):
+            for j in range(n-1, -1, -1):
+                dp[j] = max(1, min(dp[j], dp[j+1])-dungeon[i][j])
+        return dp[0]
 
 
-
-dungeon = [[-2,-3,3],[-5,-10,1],[10,30,-5]]
+dungeon = [
+    [-2, -3, 3],
+    [-5, -10, 1],
+    [10, 30, -5]
+]
 obj = Solution()
-print(obj.calculateMinimumHP2(dungeon))
+print(obj.calculateMinimumHP3(dungeon))
