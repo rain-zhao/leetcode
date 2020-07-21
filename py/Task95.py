@@ -30,6 +30,36 @@ class Solution:
 
         return dfs(1, n+1)
 
+    # dfs + memo
+    def generateTrees2(self, n: int) -> List[TreeNode]:
+        if not n:
+            return []
+
+        def index(beg: int, end: int) -> int:
+            return beg * n + end
+
+        memo = {}
+
+        def dfs(beg: int, end: int) -> List[TreeNode]:
+            if beg > end:
+                return [None]
+            idx = index(beg, end)
+            if idx in memo:
+                return memo[idx]
+            res = []
+            for i in range(beg, end + 1):
+                lefts = dfs(beg, i - 1)
+                rights = dfs(i + 1, end)
+                for l in lefts:
+                    for r in rights:
+                        root = TreeNode(i)
+                        root.left, root.right = l, r
+                        res.append(root)
+            memo[idx] = res
+            return res
+        return dfs(1, n)
+
+
 n = 3
-so = Solution()
-print(so.generateTrees(n))
+obj = Solution()
+print(obj.generateTrees2(n))

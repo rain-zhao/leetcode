@@ -6,7 +6,7 @@ class Solution:
             if sum == target:
                 return [left, right]
             elif sum < target:
-                left+=1
+                left += 1
             else:
-                right-=1
-        return [-1,-1]
+                right -= 1
+        return [-1, -1]
