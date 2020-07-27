@@ -1,4 +1,5 @@
 from queue import SimpleQueue
+from collections import deque
 
 
 class TreeNode:
@@ -31,4 +32,21 @@ class Solution:
                     q.put(node.left)
                 if node.right:
                     q.put(node.right)
+        return dept
+
+    # bfs using collections.deque
+    def maxDepth3(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        q = deque([root,])
+        dept = 0
+        while q:
+            levelSize = len(q)
+            dept += 1
+            for _ in range(levelSize):
+                node = q.popleft()
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
         return dept
