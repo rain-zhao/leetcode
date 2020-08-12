@@ -10,7 +10,7 @@ class Node:
 
 class Solution:
 
-    map = {None: None}
+    dict = {None: None}
 
     def cloneGraph(self, node: 'Node') -> 'Node':
         if node in self.dict:
