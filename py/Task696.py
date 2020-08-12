@@ -56,7 +56,6 @@ class Solution:
 
     # 先合并连续出现的字串，再计算相邻的数字
     def countBinarySubstrings3(self, s: str) -> int:
-        l = len(s)
         counts = []
         count = 1
         for c1, c2 in zip(s, s[1:]):
@@ -71,7 +70,19 @@ class Solution:
             res += min(c1, c2)
         return res
 
+    def countBinarySubstrings4(self, s: str) -> int:
+        pre, cur = 0, 1
+        res = 0
+        for c1, c2 in zip(s, s[1:]):
+            if c1 == c2:
+                cur += 1
+            else:
+                res += min(pre, cur)
+                pre, cur = cur, 1
+        res += min(pre, cur)
+        return res
+
 
 obj = Solution()
 s = "00110011"
-print(obj.countBinarySubstrings3(s))
+print(obj.countBinarySubstrings4(s))
