@@ -6,30 +6,22 @@
 #         self.right = None
 
 from TreeNode import TreeNode
+from queue import Queue
 
 
 class Solution:
+    # dfs
     def isBalanced(self, root: TreeNode) -> bool:
-        def balanceAndHigh(root: TreeNode) -> int:
-            if not root:
-                return 0
-            left, right = balanceAndHigh(root.left), balanceAndHigh(root.right)
-            if left == -1 or right == -1:
-                return -1
-            return max(left, right)+1 if -1 <= left - right <= 1 else -1
-
-        high = balanceAndHigh(root)
-        return high != -1
-
-    def isBalanced2(self, root: TreeNode) -> bool:
         def dfs(root: TreeNode) -> int:
-            # terminator
             if not root:
                 return 0
-            left, right = dfs(root.left), dfs(root.right)
+            left = dfs(root.left)
+            right = dfs(root.right)
             if left == -1 or right == -1:
                 return -1
-            return max(left, right) + 1 if -1 < left - right < 1 else -1
+            if not -1 <= left - right <= 1:
+                return -1
+            return max(left, right)+1
         return dfs(root) != -1
 
 
