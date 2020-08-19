@@ -54,4 +54,4 @@ class Solution:
 head = ListNode(-10)
 head.nextItm(-3).nextItm(0).nextItm(5).nextItm(9)
 so = Solution()
-so.sortedListToBST3(head)
+so.sortedListToBST(head)
