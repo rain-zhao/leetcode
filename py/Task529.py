@@ -49,21 +49,19 @@ class Solution:
             [1, -1], [1, 0], [1, 1]
         ]
 
-        def dfs(x: int, y: int):
-            cnt = 0
-            for dx, dy in direct:
-                xx, yy = x+dx, y+dy
-                if 0 <= xx < m and 0 <= yy < n and board[xx][yy] == 'M':
-                    cnt += 1
+        def check(x, y, c):
+            return 0 <= x < m and 0 <= y < n and board[x][y] == c
 
+        def dfs(x: int, y: int):
+            cnt = sum(check(x+dx, y+dy, 'M') for dx, dy in direct)
             if cnt > 0:
                 board[x][y] = str(cnt)
             else:
                 board[x][y] = 'B'
                 for dx, dy in direct:
                     xx, yy = x+dx, y+dy
-                    if 0 <= xx < m and 0 <= yy < n and board[xx][yy] == 'E':
-                        dfs(x+dx, y+dy)
+                    if check(xx, yy, 'E'):
+                        dfs(xx, yy)
 
         dfs(*click)
         return board
