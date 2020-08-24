@@ -11,11 +11,11 @@ class Solution:
                 nums.remove(num1)
                 for num2 in nums[:]:
                     nums.remove(num2)
-                    # add
-                    if dfs(nums + [num1+num2]):
+                    # add,剪枝，满足交换律，剪掉num1 < num2 的分支
+                    if num1 >= num2 and dfs(nums + [num1+num2]):
                         return True
-                    # multi
-                    if dfs(nums + [num1*num2]):
+                    # multi，剪枝，满足交换律，剪掉num1 < num2 的分支
+                    if num1 >= num2 and dfs(nums + [num1*num2]):
                         return True
                     # divide
                     if num2 > 0.01 and dfs(nums + [num1/num2]):
