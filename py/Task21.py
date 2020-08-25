@@ -42,3 +42,23 @@ class Solution:
             l1, l2 = l2, l1
         l1.next = self.mergeTwoLists(l1.next, l2)
         return l1
+
+    # recursion 2
+    def mergeTwoLists3(self, l1: ListNode, l2: ListNode) -> ListNode:
+        def dfs(prev: ListNode, l1: ListNode, l2: ListNode) -> None:
+            if not l1:
+                prev.next = l2
+                return
+            if not l2:
+                prev.next = l1
+                return
+            if l1.val <= l2.val:
+                prev.next = l1
+                dfs(prev.next, l1.next, l2)
+            else:
+                prev.next = l2
+                dfs(prev.next, l1, l2.next)
+        dummy = ListNode()
+        prev = dummy
+        dfs(prev, l1, l2)
+        return dummy.next
