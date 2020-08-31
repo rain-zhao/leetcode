@@ -9,7 +9,36 @@
 # 输入: "abcd"
 # 输出: "dcbabcd"
 
+from typing import List
+
 
 class Solution:
+    # KMP
     def shortestPalindrome(self, s: str) -> str:
-        pass
+        t = s[::-1]
+        n = len(s)
+        next = self.genNext(s)
+        i = j = 0
+        while i < n and j < n:
+            if j == -1 or t[i] == s[j]:
+                i += 1
+                j += 1
+            else:
+                j = next[j]
+        return t + s[j:]
+
+    def genNext(self, s: str) -> List[int]:
+        n = len(s)
+        next = [-1] * n
+        j = -1
+        for i in range(n - 1):
+            while j != -1 and s[i] != s[j]:
+                j = next[j]
+            j += 1
+            next[i + 1] = j
+        return next
+
+
+s = "aacecaaa"
+obj = Solution()
+print(obj.shortestPalindrome(s))
