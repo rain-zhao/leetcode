@@ -38,7 +38,22 @@ class Solution:
             next[i + 1] = j
         return next
 
+    # Rabin-Karp
+    def shortestPalindrome2(self, s: str) -> str:
+        n = len(s)
+        base, mod = 31, 1000000007
+        best = 0
+        prefix = suffix = 0
+        mul = 1
+        for i in range(n):
+            prefix = (prefix * base + ord(s[i])) % mod
+            suffix = (suffix + ord(s[i]) * mul) % mod
+            mul = mul * base % mod
+            if prefix == suffix:
+                best = i + 1
+        return s[best:][::-1] + s
+
 
 s = "aacecaaa"
 obj = Solution()
-print(obj.shortestPalindrome(s))
+print(obj.shortestPalindrome2(s))
