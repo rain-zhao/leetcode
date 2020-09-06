@@ -8,25 +8,27 @@
 from TreeNode import TreeNode
 from collections import deque
 
+
 class Solution:
+    # dfs
     def levelOrderBottom(self, root: TreeNode) -> [[int]]:
-        def dfs(root: TreeNode, level: int) -> None:
-            if not root:
+        res = []
+
+        def dfs(lev: int, node: TreeNode):
+                # terminator
+            if not node:
                 return
-            if level > len(self.res)-1:
-                self.res.append([])
-            self.res[level].append(root.val)
-            dfs(root.left, level+1)
-            dfs(root.right, level+1)
+            if lev == len(res):
+                res.append([])
+            res[lev].append(node.val)
+            dfs(lev+1, node.left)
+            dfs(lev+1, node.right)
+        dfs(0, root)
+        return res[:: -1]
 
-        self.res = []
-        dfs(root, 0)
-        self.res.reverse()
-
-        return self.res
     def levelOrderBottom2(self, root: TreeNode) -> [[int]]:
         res = []
-        dq = deque([root])   
+        dq = deque([root])
         while dq:
             l = []
             for _ in range(len(dq)):
@@ -45,4 +47,4 @@ root = TreeNode(3)
 root.left, root.right = TreeNode(9), TreeNode(20)
 root.right.left, root.right.right = TreeNode(15), TreeNode(7)
 solution = Solution()
-print(solution.levelOrderBottom2(root))
+print(solution.levelOrderBottom(root))
