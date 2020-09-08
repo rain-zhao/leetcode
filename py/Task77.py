@@ -1,16 +1,19 @@
+from typing import List
+
+
 class Solution:
-    def combine(self, n: int, k: int) -> [[int]]:
-        def dfs(res: [[int]], l: [int]) -> None:
-            if len(l) == k:
-                res.append(l)
-                return
-            start = 1 if not l else l[-1]+1
-            for i in range(start, n-k+len(l)+2):
-                dfs(res,l+[i])
-        
+    def combine(self, n: int, k: int) -> List[List[int]]:
         res = []
-        dfs(res,[])
+
+        def dfs(nn: int, candidate: [int]):
+            if len(candidate) == k:
+                res.append(candidate)
+                return
+            for i in range(nn + 1, n-k+len(candidate)+2):
+                dfs(i + 1, candidate + [i])
+        dfs(1, [])
         return res
+
     def combine2(self, n, k):
         ans = []
         nums = [i for i in range(1, k + 1)] + [n+1]
@@ -24,8 +27,29 @@ class Solution:
             nums[j] += 1
         return ans
 
+    # dfs
+    def combine3(self, n: int, k: int) -> List[List[int]]:
+        res = []
+
+        def dfs(nn: int, candidate: List[int]):
+            # terminator
+            if len(candidate) == k:
+                res.append(candidate[:])
+                return
+            # 剩余可操作数量少于还需要数
+            if n - nn + 1 < k - len(candidate):
+                return
+            # no choose
+            dfs(nn + 1, candidate)
+            # choose
+            candidate.append(nn)
+            dfs(nn + 1, candidate)
+            candidate.pop()
+        dfs(1, [])
+        return res
+
+
 n = 4
-k=2
+k = 2
 so = Solution()
-print(so.combine(n,k))
-            
+print(so.combine2(n, k))
