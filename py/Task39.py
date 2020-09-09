@@ -50,8 +50,26 @@ class Solution:
         _dfs(0, target, [])
         return self.res
 
+    # 2020-09-09 dfs
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        n = len(candidates)
+
+        def dfs(i: int, remain: int, l: List[int]):
+            if remain == 0:
+                res.append(l)
+                return
+            if i == n or remain < 0:
+                return
+            # not choose
+            dfs(i+1, remain, l)
+            # choose
+            dfs(i, remain - candidates[i], l+[candidates[i]])
+        dfs(0, target, [])
+        return res
+
 
 obj = Solution()
 candidates = [2, 3, 5]
 target = 8
-print(obj.combinationSum(candidates, target))
+print(obj.combinationSum2(candidates, target))
