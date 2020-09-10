@@ -33,7 +33,6 @@ class Solution:
         l = len(candidates)
         if not candidates:
             return self.res
-        sorted(candidates)
 
         def _dfs(idx: int, target, subList: List[int]):
             # terminate
