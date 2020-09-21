@@ -40,10 +40,22 @@ class Solution:
         dfs(root)
         return root
 
+    # dfs: no global val
+    def convertBST2(self, root: TreeNode) -> TreeNode:
+        def dfs(root: TreeNode, pre: int) -> int:
+            if not root:
+                return pre
+            pre = dfs(root.right, pre)
+            root.val += pre
+            pre = root.val
+            return dfs(root.left, pre)
+        dfs(root, 0)
+        return root
+
 
 root = TreeNode(5)
 root.left = TreeNode(2)
 root.right = TreeNode(13)
 
 obj = Solution()
-print(obj.convertBST(root))
+print(obj.convertBST2(root))
