@@ -36,19 +36,26 @@ class Solution:
 
         return build(0, len(inorder), 0, len(postorder))
 
+    # 2020-9-25 dfs
     def buildTree3(self, inorder: List[int], postorder: List[int]) -> TreeNode:
-        self.last = len(postorder)-1
-        map = {val: idx for idx, val in enumerate(inorder)}
-        a = 1
-        def build(beg: int, end: int) -> TreeNode:
-            a = a+1
-            if beg == end:
-                return None
-            val = postorder[self.last]
-            self.last -= 1
-            root = TreeNode(val)
-            root.right = build(map[val]+1, end)
-            root.left = build(beg, map[val])
-            return root
+        map = {val: i for i, val in enumerate(inorder)}
+        last = -1
 
-        return build(0, len(inorder))
+        def dfs(beg: int, end: int) -> TreeNode:
+            nonlocal last
+            if beg > end:
+                return None
+            # find root
+            val = postorder[last]
+            last -= 1
+            root = TreeNode(val)
+            root.right = dfs(map[val]+1, end)
+            root.left = dfs(beg, map[val]-1)
+            return root
+        return dfs(0, len(inorder)-1)
+
+
+inorder = [9, 3, 15, 20, 7]
+postorder = [9, 15, 7, 20, 3]
+obj = Solution()
+obj.buildTree4(inorder, postorder)
