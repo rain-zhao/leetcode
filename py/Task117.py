@@ -13,26 +13,24 @@ from collections import deque
 
 
 class Solution:
+    # bfs: optimize at 2020-09-28
     def connect(self, root: Node) -> Node:
         if not root:
             return root
         queue = deque([root])
+
         while queue:
-            l = len(queue)
-            for _ in range(l-1):
-                item = queue.popleft()
-                item.next = queue[0]
-                if item.left:
-                    queue.append(item.left)
-                if item.right:
-                    queue.append(item.right)
-
-            item = queue.popleft()
-            if item.left:
-                queue.append(item.left)
-            if item.right:
-                queue.append(item.right)
-
+            size = len(queue)
+            array = []
+            for _ in range(size):
+                itm = queue.popleft()
+                array.append(itm)
+                if itm.left:
+                    queue.append(itm.left)
+                if itm.right:
+                    queue.append(itm.right)
+            for i, j in zip(array, array[i]):
+                i.next = j
         return root
 
     def connect2(self, root: Node) -> Node:
