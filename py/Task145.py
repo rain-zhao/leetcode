@@ -36,6 +36,18 @@ class Solution:
         res.reverse()
         return res
 
+    def postorderTraversal3(self, root: TreeNode) -> List[int]:
+        res = []
+        stack = []
+        while root or stack:
+            if root:
+                res.append(root.val)
+                stack.append(root.left)
+                root = root.right
+            else:
+                root = stack.pop()
+        return reversed(res)
+
 
 root = TreeNode(1)
 root.right = TreeNode(2)
