@@ -7,14 +7,21 @@ class ListNode:
 class Solution:
     # floyd
     def hasCycle(self, head: ListNode) -> bool:
-        if not head:
-            return True
-        slow = fast = head
-        while fast.next and fast.next.next:
-            slow = slow.next
-            fast = fast.next.next
-            if slow == fast:
+        p1 = p2 = head
+        while p2 and p2.next:
+            p1 = p1.next
+            p2 = p2.next.next
+            if p1 == p2:
                 return True
         return False
-    
 
+    # hash
+    def hasCycle2(self, head: ListNode) -> bool:
+        p = head
+        hash = set()
+        while p:
+            if p in hash:
+                return True
+            hash.add(p)
+            p = p.next
+        return False
