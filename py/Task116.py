@@ -12,6 +12,7 @@ from collections import deque
 
 
 class Solution:
+    # bfs using deque
     def connect(self, root: Node) -> Node:
         if not root:
             return root
@@ -34,16 +35,70 @@ class Solution:
 
         return root
 
+    # dfs optimize
     def connect2(self, root: Node) -> Node:
         if not root:
             return root
-        if root.left:
+
+        def dfs(root):
+            if not root.left:
+                return
             root.left.next = root.right
             if root.next:
                 root.right.next = root.next.left
-            self.connect2(root.left)
-            self.connect2(root.right)
+            dfs(root.left)
+            dfs(root.right)
+        dfs(root)
+        return root
 
+    # bfs using array
+    def connect3(self, root: Node) -> Node:
+        if not root:
+            return root
+        parents = [root]
+        while parents:
+            descendants = []
+            for parent in parents:
+                if parent.left:
+                    descendants.append(parent.left)
+                if parent.right:
+                    descendants.append(parent.right)
+            for cur, nxt in zip(descendants, descendants[1:]):
+                cur.next = nxt
+            parents = descendants
+        return root
+
+    # iteration
+    def connect4(self, root: Node) -> Node:
+        if not root:
+            return root
+        dummy = Node(None, None, None, root)
+        while True:
+            p = dummy.next
+            if not p.left:
+                break
+            pre = dummy
+            while p:
+                pre.next = p.left
+                p.left.next = p.right
+                pre = p.right
+                p = p.next
+
+        return root
+
+    # iteration optimize code
+    def connect5(self, root: Node) -> Node:
+        if not root:
+            return root
+        leftmost = root
+        while leftmost.left:
+            p = leftmost
+            while p:
+                p.left.next = p.right
+                if p.next:
+                    p.right.next = p.next.left
+                p = p.next
+            leftmost = leftmost.left
         return root
 
 
