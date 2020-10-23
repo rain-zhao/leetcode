@@ -8,13 +8,13 @@ class Solution:
         for idx, c in enumerate(S):
             lastOccur[c] = idx
         res = []
-        beg = end = 0
+        beg = end = -1
         # loop
         for idx, c in enumerate(S):
             end = max(end, lastOccur[c])
             if idx == end:
-                res.append(end-beg+1)
-                beg = idx+1
+                res.append(end-beg)
+                beg = idx
         return res
 
 
