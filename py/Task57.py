@@ -52,17 +52,18 @@ class Solution:
         intervals.append(newInterval)
         intervals.sort()
         res = []
-        res.append(intervals[0])
-
-        for interval in intervals[1:]:
-            if res[-1][1] < interval[0]:
-                res.append(interval)
+        pre = intervals[0]
+        for cur in intervals[1:]:
+            if pre[1] < cur[0]:
+                res.append(pre)
+                pre = cur
             else:
-                res[-1][1] = max(res[-1][1],interval[1])
+                pre[1] = max(pre[1], cur[1])
+        res.append(pre)
         return res
 
 
 solution = Solution()
-intervals = [[1, 3], [6, 9]]
-newInterval = [2, 5]
+intervals = [[1, 5]]
+newInterval = [6, 8]
 print(solution.insert3(intervals, newInterval))
