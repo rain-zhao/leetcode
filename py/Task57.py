@@ -1,5 +1,5 @@
 from bisect import bisect_left
-
+from bisect import insort_left
 
 class Solution:
     def insert(self, intervals: [[int]], newInterval: [int]) -> [[int]]:
@@ -49,8 +49,7 @@ class Solution:
     def insert3(self, intervals: [[int]], newInterval: [int]) -> [[int]]:
         if not intervals:
             return [newInterval]
-        intervals.append(newInterval)
-        intervals.sort()
+        insort_left(intervals,newInterval)
         res = []
         pre = intervals[0]
         for cur in intervals[1:]:
@@ -61,6 +60,9 @@ class Solution:
                 pre[1] = max(pre[1], cur[1])
         res.append(pre)
         return res
+
+
+
 
 
 solution = Solution()
