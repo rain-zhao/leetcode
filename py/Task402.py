@@ -1,5 +1,5 @@
 class Solution:
-    # dp
+    # dp (not ac)
     def removeKdigits(self, num: str, k: int) -> str:
         # dp[i][j] = 以第i个数字结尾的去掉了j个数字的数字最小值
         if not num or not k:
@@ -16,7 +16,7 @@ class Solution:
                 dp[i][j] = min(dp[i-1][j] * 10 + int(num[i-1]), dp[i-1][j-1])
         return str(dp[n][k])
 
-    # dp 压缩空间
+    # dp 压缩空间 (not ac)
     def removeKdigits2(self, num: str, k: int) -> str:
         if not num or not k:
             return num
@@ -27,8 +27,8 @@ class Solution:
                 dp[j] = min(dp[j] * 10 + int(num[i-1]), dp[j-1])
             dp[0] = dp[0] * 10 + int(num[i-1])
         return str(dp[k])
-    # 单调数组
 
+    # 单调数组 (ac)
     def removeKdigits3(self, num: str, k: int) -> str:
         stack = []
         for digit in num:
