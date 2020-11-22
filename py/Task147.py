@@ -27,8 +27,28 @@ class Solution:
                 next.next = cur
         return dummy.next
 
+    def insertionSortList2(self, head: ListNode) -> ListNode:
+        if not head:
+            return head
+        dummy = ListNode(-1)
+        dummy.next = head
+        tail = head
+        while tail.next:
+            # max
+            if tail.val < tail.next.val:
+                tail = tail.next
+                continue
+            cur = tail.next
+            tail.next = cur.next
+            p = dummy
+            while p.next.val < cur.val:
+                p = p.next
+            # insert
+            p.next, cur.next = cur, p.next
+        return dummy.next
 
-head = ListNode(4)
-head.nextItm(2).nextItm(1).nextItm(3)
+
+head = ListNode(-1)
+head.nextItm(5).nextItm(3).nextItm(4).nextItm(0)
 so = Solution()
-so.insertionSortList(head)
+so.insertionSortList2(head)
