@@ -14,19 +14,6 @@ class Solution:
             return 0
         return self.countNodes(root.left)+self.countNodes(root.right)+1
 
-    def countNodes2(self, root: TreeNode) -> int:
-        count = 0
-
-        def dfs(root: TreeNode):
-            if not root:
-                return
-            nonlocal count
-            count += 1
-            dfs(root.left)
-            dfs(root.right)
-        dfs(root)
-        return count
-
     def countNodes3(self, root: TreeNode) -> int:
         if not root:
             return 0
@@ -44,19 +31,27 @@ class Solution:
             root = root.left
         return cnt
 
-    def countNodes4(self, root: TreeNode) -> int:
+    def countNodes5(self, root: TreeNode) -> int:
+        def level(root: TreeNode) -> int:
+            lev = 0
+            while root:
+                lev += 1
+                root = root.left
+            return lev
+
         if not root:
             return 0
         cnt = 0
-        levll, levlr = self.cntLevel(root.left), None
+        left = level(root.left)
         while root:
-            levlr = self.cntLevel(root.right)
-            if levll == levlr:
-                cnt += 2**levll
+            right = level(root.right)
+            if left == right:
+                # left full
+                cnt += 2 ** left
                 root = root.right
-                levll = levlr-1
             else:
-                cnt += 2**levlr
+                # right full
+                cnt += 2 ** right
                 root = root.left
-                levll = levll-1
+            left -= 1
         return cnt
