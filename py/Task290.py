@@ -6,14 +6,12 @@ class Solution:
         str = str.split()
         if len(pattern) != len(str):
             return False
-        map1 = {}
-        map2 = {}
+        map1, map2 = {}, {}
         for i, j in zip(pattern, str):
-            if i not in map1 and j not in map2:
-                map1[i] = j
-                map2[j] = i
-            elif i not in map1 or j not in map2 or map1[i] != j or map2[j] != i:
+            if i in map1 and map1[i] != j or j in map2 and map2[j] != i:
                 return False
+            map1[i] = j
+            map2[j] = i
         return True
 
     def wordPattern2(self, pattern: str, str: str) -> bool:
@@ -30,6 +28,6 @@ class Solution:
 
 
 pattern = "abba"
-str = "dog cat cat dog"
+str = "dog cat cat fish"
 so = Solution()
-print(so.wordPattern2(pattern, str))
+print(so.wordPattern(pattern, str))
