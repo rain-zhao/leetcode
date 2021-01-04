@@ -26,6 +26,23 @@ class Solution:
 
         return lo.next
 
+    # 2020-01-04
+    def partition2(self, head: ListNode, x: int) -> ListNode:
+        lo = dummyLo = ListNode(-1)
+        hi = dummyHi = ListNode(-1)
+        p = head
+        while p:
+            if p.val < x:
+                lo.next = p
+                lo = lo.next
+            else:
+                hi.next = p
+                hi = hi.next
+            p = p.next
+        lo.next = dummyHi.next
+        hi.next = None
+        return dummyLo.next
+
 
 head = ListNode(1)
 head.nextItm(4).nextItm(3).nextItm(2).nextItm(5).nextItm(2)
