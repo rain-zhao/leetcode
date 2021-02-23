@@ -2,17 +2,15 @@ from typing import List
 
 
 class Solution:
+    # slide window
     def maxSatisfied(self, customers: List[int], grumpy: List[int], X: int) -> int:
-        res = sum([i for i, j in zip(customers, grumpy) if not j])
-        maxDelta = delta = sum(
-            [i for i, j in zip(customers[0:X], grumpy[0:X]) if j])
+        origin = sum(i for i, j in zip(customers, grumpy) if not j)
+        delta = sum(i for i, j in zip(customers[:X], grumpy[:X]) if j)
+        res = cur = origin + delta
         for i in range(X, len(customers)):
-            if grumpy[i] == 1:
-                delta += customers[i]
-            if grumpy[i-X] == 1:
-                delta -= customers[i-X]
-            maxDelta = max(maxDelta, delta)
-        return res + maxDelta
+            cur += customers[i] *  grumpy[i] - customers[i-X] * grumpy[i-X]
+            res = max(res, cur)
+        return res
 
 
 customers = [1, 0, 1, 2, 1, 1, 7, 5]
