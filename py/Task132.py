@@ -106,3 +106,28 @@ class Solution:
                 left -= 1
                 right += 1
         return dp[-1]
+
+    def minCut2(self, s: str) -> int:
+        if s == s[::-1]:
+            return 0
+        n = len(s)
+        dp = [-1]+[i for i in range(n)]
+        for i in range(n):
+            # odd
+            left, right = i, i
+            while left >= 0 and right < n and s[left] == s[right]:
+                dp[right+1] = min(dp[left]+1, dp[right+1])
+                left -= 1
+                right += 1
+            # even
+            left, right = i, i+1
+            while left >= 0 and right < n and s[left] == s[right]:
+                dp[right+1] = min(dp[left]+1, dp[right+1])
+                left -= 1
+                right += 1
+        return dp[-1]
+
+
+s = 'aab'
+obj = Solution()
+print(obj.minCut2(s))
