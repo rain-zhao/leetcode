@@ -57,23 +57,33 @@ class Solution:
 
         return self.cnt
 
-    # 2.dp
+    # dp
     def numDistinct2(self, s: str, t: str) -> int:
-        ls, lt = len(s), len(t)
+        m, n = len(s), len(t)
         # define and init
-        dp = [[0] * (lt+1) for _ in range(ls+1)]
-        for i in range(ls+1):
+        dp = [[0] * (n+1) for _ in range(m+1)]
+        for i in range(m+1):
             dp[i][0] = 1
         # iter
-        for i in range(1, ls+1):
-            for j in range(1, lt+1):
-                dp[i][j] = dp[i-1][j]
-                if s[i-1] == t[j-1]:
-                    dp[i][j] += dp[i-1][j-1]
+        for i in range(m):
+            for j in range(n):
+                if s[i] == t[j]:
+                    dp[i+1][j+1] += dp[i][j]
+                dp[i+1][j+1] += dp[i][j+1]
         return dp[-1][-1]
 
+    # dp + compress
+    def numDistinct3(self, s: str, t: str) -> int:
+        m, n = len(s), len(t)
+        dp = [1] + [0] * n
+        for i in range(m):
+            for j in range(n-1, -1, -1):
+                if s[i] == t[j]:
+                    dp[j+1] += dp[j]
+        return dp[-1]
 
-S = "babgbag"
-T = "bag"
+
+S = "rabbbit"
+T = "rabbit"
 obj = Solution()
-print(obj.numDistinct2(S, T))
+print(obj.numDistinct3(S, T))
