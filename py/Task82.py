@@ -39,3 +39,17 @@ class Solution:
                 cur = pre.next = cur.next
 
         return dummy.next
+
+    def deleteDuplicates3(self, head: ListNode) -> ListNode:
+        dummy = ListNode(-1)
+        pre, cur = dummy, head
+        while cur:
+            if cur.next and cur.next.val == cur.val:
+                while cur.next and cur.val == cur.next.val:
+                    cur = cur.next
+            else:
+                pre.next = cur
+                pre = pre.next
+            cur = cur.next
+        pre.next = None
+        return dummy.next
