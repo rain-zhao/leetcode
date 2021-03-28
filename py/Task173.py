@@ -48,6 +48,30 @@ class BSTIterator2:
         return self.stack
 
 
+class BSTIterator3:
+
+    def __init__(self, root: TreeNode):
+        arr = []
+
+        def dfs(root: TreeNode):
+            if not root:
+                return
+            dfs(root.left)
+            arr.append(root.val)
+            dfs(root.right)
+        dfs(root)
+        self.arr = arr
+        self.idx = 0
+
+    def next(self) -> int:
+        val = self.arr[self.idx]
+        self.idx += 1
+        return val
+
+    def hasNext(self) -> bool:
+        return not len(self.arr) == self.idx
+
+
 root = TreeNode(7)
 root.left, root.right = TreeNode(3), TreeNode(15)
 root.right.left, root.right.right = TreeNode(9), TreeNode(20)
