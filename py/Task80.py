@@ -15,4 +15,4 @@ class Solution:
 
 so = Solution()
 nums = [1, 1, 1, 2, 2, 3]
-print(so.removeDuplicates2(nums))
+print(so.removeDuplicates(nums))
