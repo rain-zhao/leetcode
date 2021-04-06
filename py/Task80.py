@@ -1,5 +1,8 @@
+from typing import List
+
+
 class Solution:
-    def removeDuplicates(self, nums: [int]) -> int:
+    def removeDuplicates(self, nums: List[int]) -> int:
         if len(nums) < 2:
             return len(nums)
         pos = 2
@@ -11,5 +14,5 @@ class Solution:
 
 
 so = Solution()
-nums = [1,1,1,2,2,3]
-print(so.removeDuplicates(nums))
+nums = [1, 1, 1, 2, 2, 3]
+print(so.removeDuplicates2(nums))
