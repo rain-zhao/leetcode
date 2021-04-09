@@ -26,17 +26,23 @@ class Solution:
     def findMin(self, nums: List[int]) -> int:
         if nums[0] < nums[-1]:
             return nums[0]
-        if (l:= len(nums)) == 1:
-            return nums[0]
-        left, right = 0, l - 1
+        n = len(nums)
+        if n <= 8:
+            return min(nums)
+        left, right = 0, n-1
         while left <= right:
             mid = (left + right) >> 1
-            if nums[mid] < nums[mid - 1]:
+            if nums[mid] < nums[mid-1]:
                 return nums[mid]
-            elif nums[mid] == nums[right]:
-                right -= 1
-            elif nums[mid] > nums[right]:
-                left = mid + 1
             elif nums[mid] < nums[right]:
                 right = mid - 1
+            elif nums[mid] > nums[right]:
+                left = mid + 1
+            else:
+                right -= 1
         return nums[right]
+
+
+nums = [2, 2, 2, 0, 1]
+obj = Solution()
+print(obj.findMin2(nums))

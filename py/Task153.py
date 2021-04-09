@@ -30,7 +30,7 @@ class Solution:
                 right = mid - 1
         return -1
 
-    # binary search
+    # 2021-04-08
     def findMin3(self, nums: List[int]) -> int:
         if nums[0] < nums[-1]:
             return nums[0]
