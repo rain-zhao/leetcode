@@ -38,7 +38,7 @@ class Solution:
             if num > d[-1]:
                 d.append(num)
             else:
-                d[bisect.bisect_left(d,num)] = num
+                d[bisect.bisect_left(d, num)] = num
         return len(d)
 
 
