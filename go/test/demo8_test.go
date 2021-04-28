@@ -1,7 +1,8 @@
-package main
+package test
 
 import (
 	"fmt"
+	"testing"
 	"time"
 )
 
@@ -13,11 +14,11 @@ func sum(s []int, c chan int) {
 		sum += v
 	}
 	time.Sleep(sep)
-	sep *=2
+	sep *= 2
 	c <- sum // 把 sum 发送到通道 c
 }
 
-func main() {
+func TestDemo8(t *testing.T) {
 	s := []int{7, 2, 8, -9, 4, 0}
 
 	c := make(chan int)

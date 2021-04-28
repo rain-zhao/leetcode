@@ -1,8 +1,11 @@
-package main
+package test
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
-func main() {
+func TestDemo3(t *testing.T) {
 	var a int = 4
 	var b int32
 	var c float32

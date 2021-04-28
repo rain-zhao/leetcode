@@ -1,7 +1,8 @@
-package main
+package test
 
 import (
 	"fmt"
+	"testing"
 	"time"
 )
 
@@ -14,7 +15,7 @@ func Chann(ch chan int, stopCh chan bool) {
 	stopCh <- true
 }
 
-func main() {
+func TestDemo4(t *testing.T) {
 
 	ch := make(chan int)
 	var c int

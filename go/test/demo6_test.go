@@ -1,6 +1,9 @@
-package main
+package test
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
 type User struct {
 	name string
@@ -15,7 +18,7 @@ func (user *User) changeName2(newName string) {
 	user.name = newName
 }
 
-func main() {
+func TestDemo6(t *testing.T) {
 	////////////方法参数为对象///////////////
 	user := User{"rian.zhao", "male"}
 

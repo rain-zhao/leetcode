@@ -1,8 +1,11 @@
-package main
+package test
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
-func main() {
+func TestDemo5(t *testing.T) {
 	countryCapitalMap := make(map[string]string)
 
 	/* map插入key - value对,各个国家对应的首都 */

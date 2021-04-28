@@ -1,8 +1,11 @@
-package main
+package test
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
-func main() {
+func TestDemo2(t *testing.T) {
 	const (
 		a = iota //0
 		b        //1
