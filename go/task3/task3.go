@@ -1,4 +1,4 @@
-package main
+package task3
 
 func lengthOfLongestSubstring(s string) int {
 	if len(s) == 0 {
@@ -19,9 +19,4 @@ func lengthOfLongestSubstring(s string) int {
 		}
 	}
 	return res
-}
-
-func main() {
-	s := "abcabcbb"
-	println(lengthOfLongestSubstring(s))
 }
