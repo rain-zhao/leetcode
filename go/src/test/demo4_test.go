@@ -30,7 +30,7 @@ func TestDemo4(t *testing.T) {
 			fmt.Println("channel")
 		case s := <-ch:
 			fmt.Println("Receive", s)
-		case _ = <-stopCh:
+		case <-stopCh:
 			goto end
 		}
 	}
