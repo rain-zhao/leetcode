@@ -1,8 +1,9 @@
 package test
 
 import (
-	"test/packageImport"
 	"testing"
+
+	"rain.zhao/leecode/test/packageImport"
 )
 
 func TestPackageImport(t *testing.T) {
