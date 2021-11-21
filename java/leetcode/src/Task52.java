@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.Test;
-import sun.jvm.hotspot.debugger.win32.coff.TestDebugInfo;
 
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;

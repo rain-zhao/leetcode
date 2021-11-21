@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.Test;
-import sun.tools.java.AmbiguousMember;
 
 import java.util.Arrays;
 
